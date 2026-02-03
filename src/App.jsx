@@ -64,11 +64,11 @@ function App() {
         <p className="role">
       <Typical
         steps={[
-          "Front End Developer",
+          "QA Automation",
           1000,
-          "Full Stack Developer",
+          "Software Tester",
           1000,
-          "Mobile Developer",
+          "Front-End Developer",
           1000,
         ]}
         loop={Infinity}
@@ -299,6 +299,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
