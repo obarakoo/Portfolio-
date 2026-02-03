@@ -166,7 +166,7 @@ function App() {
           <div className="card-list">
             <article className="card">
               <header className="card-header">
-                <h3 className="card-title">Senior Frontend Engineer</h3>
+                <h3 className="card-title">Everglow AI</h3>
                 <span className="card-meta">2022 — Present · Remote</span>
               </header>
               <p className="card-body">
@@ -179,6 +179,18 @@ function App() {
             </article>
 
             <article className="card">
+              <header className="card-header">
+                <h3 className="card-title">Full Stack Developer</h3>
+                <span className="card-meta">2019 — 2022 · On-site</span>
+              </header>
+              <p className="card-body">
+                Integer efficitur, magna a fermentum fringilla, ex arcu
+                placerat odio, id rhoncus enim lacus in arcu. Nam lobortis,
+                ipsum at euismod facilisis, orci arcu rhoncus leo, nec
+                fringilla nunc arcu in arcu.
+              </p>
+            </article>
+             <article className="card">
               <header className="card-header">
                 <h3 className="card-title">Full Stack Developer</h3>
                 <span className="card-meta">2019 — 2022 · On-site</span>
@@ -274,4 +286,5 @@ function App() {
 }
 
 export default App;
+
 
