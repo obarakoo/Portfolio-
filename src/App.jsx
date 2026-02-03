@@ -135,11 +135,11 @@ function App() {
         <section id="about" className="section">
           <h2 className="section-title">About</h2>
           <p className="section-text">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-            feugiat, nibh sed semper luctus, nisi est aliquet quam, in dapibus
-            purus mauris a ante. Suspendisse potenti. Donec placerat, lorem ut
-            posuere aliquet, magna quam vulputate eros, vitae pretium elit sem
-            sed ligula.
+            I am an entry-level QA Tester with an IT background, focused on manual testing, bug reporting, and maintaining software quality.
+            I have experience validating application behavior, identifying issues, and documenting defects clearly. I am familiar with SDLC, Jira, 
+            and basic web technologies, which helps me understand how applications work from both a user and system perspective. I am actively learning 
+            test automation and continuously improving my skills, with the goal of growing into a QA Automation Engineer and becoming a reliable QA Engineer 
+            who contributes to building stable, high-quality, and user-friendly applications.
           </p>
           <p className="section-text">
             Curabitur in mauris nec nunc suscipit condimentum. Vestibulum ante
@@ -286,5 +286,6 @@ function App() {
 }
 
 export default App;
+
 
 
