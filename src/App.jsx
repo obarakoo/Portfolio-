@@ -61,7 +61,20 @@ function App() {
           />
         </div>
         <h1 className="name">Alfred M. Porcales</h1>
-        <p className="role">Automation Tester</p>
+        <p className="role">
+      <Typical
+        steps={[
+          "Front End Developer",
+          1000,
+          "Full Stack Developer",
+          1000,
+          "Mobile Developer",
+          1000,
+        ]}
+        loop={Infinity}
+        wrapper="span"
+      />
+    </p>
         <p className="tagline">
           I build fast, modern web experiences with a focus on clean design and
           smooth interactions.
@@ -286,6 +299,7 @@ function App() {
 }
 
 export default App;
+
 
 
 
