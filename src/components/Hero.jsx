@@ -13,6 +13,7 @@ const Hero = () => {
           <div className="profile-wrapper character-vibe">
             <div className="profile-image-container">
               <img src={profileImage} alt="Alfred Profile" className="profile-image" />
+              <div className="profile-glow-overlay"></div>
             </div>
             {/* Orbiting Tech Ic  ons */}
             <div className="orbit-ring">
