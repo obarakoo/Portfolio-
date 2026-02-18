@@ -2,9 +2,12 @@ import React from "react";
 import ScrollAnimate from "./ScrollAnimate";
 import Typewriter from "./Typewriter";
 import profileImage from "../../profile-user/image-profile.png";
-import { SiPython, SiJavascript, SiReact, SiSelenium, SiGit, SiJira } from "react-icons/si";
+import { skillsData } from "../data/skills";
 
 const Hero = () => {
+  const allSkills = skillsData.flatMap((category) => category.items).filter(item => item.icon);
+  const totalSkills = allSkills.length;
+
   return (
     <section id="about" className="section hero-section">
       <div className="hero-grid-bg"></div>
@@ -15,14 +18,26 @@ const Hero = () => {
               <img src={profileImage} alt="Alfred Profile" className="profile-image" />
               <div className="profile-glow-overlay"></div>
             </div>
-            {/* Orbiting Tech Ic  ons */}
+            {/* Orbiting Tech Icons */}
             <div className="orbit-ring">
-              <div className="orbit-item item-1"><SiReact /></div>
-              <div className="orbit-item item-2"><SiPython /></div>
-              <div className="orbit-item item-3"><SiJavascript /></div>
-              <div className="orbit-item item-4"><SiSelenium /></div>
-              <div className="orbit-item item-5"><SiGit /></div>
-              <div className="orbit-item item-6"><SiJira /></div>
+              {allSkills.map((skill, index) => {
+                const angle = (360 / totalSkills) * index;
+                const radius = 192; // 384px width / 2
+                return (
+                  <div
+                    key={index}
+                    className="orbit-item"
+                    title={skill.name}
+                    style={{
+                      animationDelay: `calc(-20s / ${totalSkills} * ${index})`,
+                    }}
+                  >
+                    <div className="orbit-icon-inner">
+                      <skill.icon />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </ScrollAnimate>

@@ -381,13 +381,20 @@ ul {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  animation: rotateOrbit 20s linear infinite;
+  /* Removed rotation animation */
   z-index: 1;
+  pointer-events: none;
+  /* Let clicks pass through ring area */
 }
 
 .orbit-item {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -22px;
+  /* Half of 44px height */
+  margin-left: -22px;
+  /* Half of 44px width */
   width: 44px;
   height: 44px;
   background: rgba(28, 28, 34, 0.8);
@@ -400,49 +407,34 @@ ul {
   font-size: 1.3rem;
   color: var(--accent);
   box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  pointer-events: auto;
+  /* Re-enable clicks on items */
+
+  /* Horizontal Orbit Animation */
+  animation: horizontalOrbit 20s linear infinite;
 }
 
 .orbit-item:hover {
-  box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
-  transform: scale(1.1);
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.8);
+  border-color: #fff;
+  z-index: 20 !important;
+  /* Always on top when hovered */
+  animation-play-state: paused;
 }
 
-/* Positioning items in a circle (approximate for 6 items) */
-.item-1 {
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.orbit-icon-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
 }
 
-.item-2 {
-  top: 25%;
-  right: 7%;
-  transform: translate(50%, -50%);
-}
-
-.item-3 {
-  bottom: 25%;
-  right: 7%;
-  transform: translate(50%, 50%);
-}
-
-.item-4 {
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
-}
-
-.item-5 {
-  bottom: 25%;
-  left: 7%;
-  transform: translate(-50%, 50%);
-}
-
-.item-6 {
-  top: 25%;
-  left: 7%;
-  transform: translate(-50%, -50%);
+.orbit-item:hover .orbit-icon-inner {
+  transform: scale(1.2);
 }
 
 /* Counter-rotate icons so they stay upright */
@@ -450,27 +442,48 @@ ul {
   animation: rotateOrbit 20s linear infinite reverse;
 }
 
-@keyframes rotateOrbit {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes antigravityDrift {
+@keyframes horizontalOrbit {
   0% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateX(192px) translateY(0) scale(0.8);
+    z-index: 1;
+  }
+
+  25% {
+    transform: translateX(0) translateY(60px) scale(1.1);
+    z-index: 10;
   }
 
   50% {
-    transform: translateY(-15px) rotate(1.5deg);
+    transform: translateX(-192px) translateY(0) scale(0.8);
+    z-index: 1;
+  }
+
+  75% {
+    transform: translateX(0) translateY(-60px) scale(0.6);
+    z-index: 0;
   }
 
   100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateX(192px) translateY(0) scale(0.8);
+    z-index: 1;
+  }
+}
+
+.character-vibe {
+  /* Removed antigravity drift to keep orbit stable relative to character, or reduce it */
+  animation: antigravityDrift 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.2));
+}
+
+@keyframes antigravityDrift {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
   }
 }
 
