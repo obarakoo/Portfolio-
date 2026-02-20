@@ -6,7 +6,7 @@ const ScrollAnimate = ({ children, className = "" }) => (
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, amount: 0.2 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+        transition={{ duration: 1.8, ease: "easeOut" }}
         className={className}
     >
         {children}

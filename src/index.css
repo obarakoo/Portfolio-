@@ -119,22 +119,7 @@ ul {
   border-color: var(--accent);
 }
 
-/* Hero Grid Background */
-.hero-grid-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-color: var(--bg-primary);
-  background-image:
-    linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
-  background-size: 50px 50px;
-  pointer-events: none;
-  mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
-}
+
 
 /* Sections */
 .section {
@@ -225,13 +210,74 @@ ul {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  /* Vertically center */
   justify-content: center;
+  /* Horizontally center */
   text-align: center;
-  padding-top: var(--header-height);
+  position: relative;
+  /* Context for absolute parallax layers */
+  overflow: hidden;
+  /* Clip parallax overflow */
+  padding-top: 0;
+  /* Remove padding as we are centering */
+}
+
+/* Parallax Layers */
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* Allow children to be centered if needed */
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  /* Let clicks pass through by default */
+}
+
+.background-layer {
+  z-index: 0;
+}
+
+.mid-layer {
+  z-index: 10;
+  flex-direction: column;
+  /* Stack text vertically */
+}
+
+.foreground-layer {
+  z-index: 20;
+}
+
+/* Re-enable pointer events for interactive elements */
+.parallax-layer .hero-actions,
+.parallax-layer a,
+.parallax-layer button,
+.orbit-item {
+  pointer-events: auto;
+}
+
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 .hero-content {
-  max-width: 800px;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  /* Ensure content is above background */
 }
 
 .hero-name {
@@ -262,217 +308,125 @@ ul {
   margin-right: auto;
 }
 
+
 /* Profile & Orbit Animation */
 .profile-wrapper {
   position: relative;
-  width: 384px;
-  height: 384px;
+  width: 450px;
+  height: 480px;
   margin: 0 auto 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  perspective: 1200px;
 }
 
 .profile-image-container {
-  width: 180px;
-  height: 180px;
-  z-index: 2;
-  /* More asymmetrical liquid shape */
-  border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-  box-shadow:
-    0 0 50px rgba(0, 242, 255, 0.2),
-    inset 0 0 15px rgba(255, 255, 255, 0.1);
-  background: transparent;
-  /* Changed from white-ish to transparent */
+  width: 250px;
+  /* Increased size */
+  height: 250px;
   position: relative;
-  overflow: visible;
-  /* Ensure character can pop out */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-radius 0.5s ease-in-out;
+  transform: translateZ(0);
 }
 
-/* Organic Blob Background with Vertical Stripes */
-.profile-image-container::before {
-  content: '';
-  position: absolute;
-  top: -10%;
-  left: -15%;
-  width: 130%;
-  height: 130%;
-  background:
-    repeating-linear-gradient(90deg,
-      rgba(255, 255, 255, 0.05) 0px,
-      rgba(255, 255, 255, 0.05) 1px,
-      transparent 1px,
-      transparent 8px),
-    radial-gradient(circle at 30% 30%, #2563eb 0%, #00258b 80%);
-  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  opacity: 0.8;
-  z-index: -1;
-  filter: blur(8px);
-  animation: liquidMorph 12s ease-in-out infinite alternate;
-}
-
-/* Halftone Texture Overlay */
+/* Remove all background blobs and textures for a "transparent" floating effect */
+.profile-image-container::before,
 .profile-image-container::after {
-  content: '';
-  position: absolute;
-  inset: -10%;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.4) 1px, transparent 1.5px);
-  background-size: 6px 6px;
-  mask-image: radial-gradient(circle at center, black 60%, transparent 100%);
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 1;
-  /* Move behind character */
-  mix-blend-mode: multiply;
+  display: none;
 }
 
-@keyframes liquidMorph {
-  0% {
-    transform: scale(1) rotate(0deg);
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  }
-
-  33% {
-    transform: scale(1.05) rotate(2deg);
-    border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-  }
-
-  66% {
-    transform: scale(0.98) rotate(-2deg);
-    border-radius: 67% 33% 47% 53% / 37% 70% 30% 63%;
-  }
-
-  100% {
-    transform: scale(1) rotate(0deg);
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-  }
-}
-
-/* Inner glow/mask overlay for the cutout look */
 .profile-glow-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: inset 0 0 20px rgba(3, 48, 116, 0.3);
-  pointer-events: none;
-  z-index: 4;
+  display: none;
+  /* Removed inner shadow */
 }
 
 .profile-image {
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-  /* Follow container's organic shape */
-  object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  filter: url(#remove-white) drop-shadow(0 0 15px rgba(64, 224, 208, 0.4));
-  transform: scale(1.3) translateY(-10%);
-  /* "Move outside" / Pop out effect */
-  transform-origin: bottom center;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  /* Removes white background */
+  filter: contrast(1.1) brightness(1.1);
+  /* Sharpens the character */
+  transform: scale(1.15);
+  pointer-events: none;
   z-index: 2;
 }
 
 /* Orbit Ring */
 .orbit-ring {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  /* Removed rotation animation */
-  z-index: 1;
+  inset: 0;
   pointer-events: none;
-  /* Let clicks pass through ring area */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .orbit-item {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -22px;
-  /* Half of 44px height */
-  margin-left: -22px;
-  /* Half of 44px width */
-  width: 44px;
-  height: 44px;
-  background: rgba(28, 28, 34, 0.8);
-  backdrop-filter: blur(4px);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  z-index: 10;
+
+  /* Circular surround animation */
+  animation: orbitCircle 25s linear infinite;
+  will-change: transform;
+}
+
+.orbit-item:hover {
+  animation-play-state: paused;
+}
+
+.orbit-icon-inner {
+  width: 100%;
+  height: 100%;
+  background: rgba(13, 13, 18, 0.85);
+  backdrop-filter: blur(8px);
   border: 1px solid var(--accent);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: var(--accent);
-  box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  pointer-events: auto;
-  /* Re-enable clicks on items */
-
-  /* Horizontal Orbit Animation */
-  animation: horizontalOrbit 20s linear infinite;
+  cursor: grab;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  user-select: none;
 }
 
-.orbit-item:hover {
-  box-shadow: 0 0 25px rgba(0, 242, 255, 0.8);
-  border-color: #fff;
-  z-index: 20 !important;
-  /* Always on top when hovered */
-  animation-play-state: paused;
+.orbit-icon-inner:active {
+  cursor: grabbing;
 }
 
-.orbit-icon-inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.3s ease;
+
+@keyframes orbitCircle {
+  from {
+    transform: rotate(var(--start-angle)) translateY(-180px) rotate(calc(-1 * var(--start-angle)));
+  }
+
+  to {
+    transform: rotate(calc(var(--start-angle) + 360deg)) translateY(-180px) rotate(calc(-1 * (var(--start-angle) + 360deg)));
+  }
 }
 
-.orbit-item:hover .orbit-icon-inner {
-  transform: scale(1.2);
-}
-
-/* Counter-rotate icons so they stay upright */
+/* Keep internal icons upright */
 .orbit-item svg {
-  animation: rotateOrbit 20s linear infinite reverse;
+  animation: none;
 }
 
-@keyframes horizontalOrbit {
-  0% {
-    transform: translateX(192px) translateY(0) scale(0.8);
-    z-index: 1;
-  }
-
-  25% {
-    transform: translateX(0) translateY(60px) scale(1.1);
-    z-index: 10;
-  }
-
-  50% {
-    transform: translateX(-192px) translateY(0) scale(0.8);
-    z-index: 1;
-  }
-
-  75% {
-    transform: translateX(0) translateY(-60px) scale(0.6);
-    z-index: 0;
-  }
-
-  100% {
-    transform: translateX(192px) translateY(0) scale(0.8);
-    z-index: 1;
-  }
-}
 
 .character-vibe {
-  /* Removed antigravity drift to keep orbit stable relative to character, or reduce it */
   animation: antigravityDrift 8s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.2));
+  filter: none;
+  /* Removed drop shadows */
 }
 
 @keyframes antigravityDrift {
@@ -487,10 +441,7 @@ ul {
   }
 }
 
-.character-vibe {
-  animation: antigravityDrift 8s ease-in-out infinite;
-  filter: drop-shadow(0 0 20px rgba(0, 242, 255, 0.2));
-}
+/* Clean aesthetic - no shadows below */
 
 .hero-actions {
   display: flex;
@@ -752,6 +703,16 @@ ul {
 }
 
 /* Experience */
+.experience-section {
+  position: relative;
+}
+
+/* Foreground wrapper */
+.experience-content {
+  position: relative;
+  z-index: 2;
+}
+
 .timeline {
   border-left: 2px solid var(--border-color);
   padding-left: 2rem;
@@ -892,99 +853,202 @@ ul {
   z-index: -1;
 }
 
-/* Certifications */
-.cert-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+/* ===========================
+   FORMAL CERTIFICATION GALLERY
+   =========================== */
+
+.cert-scroll-container {
+  width: 100%;
+  overflow: hidden;
+  padding: 3rem 0;
+  position: relative;
+  /* Faded edges for better transition */
+  mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
+  -webkit-mask-image: linear-gradient(to right,
+      transparent 0%,
+      black 10%,
+      black 90%,
+      transparent 100%);
 }
 
-.cert-card {
+.cert-scroll-track {
+  display: flex;
+  gap: 1.5rem;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+  padding: 1rem 0;
+}
+
+/* Pause animation on hover so people can read the certificates */
+.cert-scroll-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    /* Since we've duplicated the content exactly once, we scroll 50% left to reach the start of the second set */
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+}
+
+.cert-formal-card {
+  flex: 0 0 340px;
   background: var(--bg-card);
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
+  border-radius: 1.25rem;
+  padding: 1.75rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  text-decoration: none;
-  height: 100%;
+  gap: 1.25rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
 }
 
-.cert-card:hover {
-  transform: translateY(-4px);
+.cert-formal-card:hover {
+  transform: translateY(-5px);
   border-color: var(--accent);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(37, 99, 235, 0.1);
 }
 
-.cert-icon-wrapper {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
+.cert-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cert-card-icon {
+  font-size: 2.22rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cert-card-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.05);
   color: var(--text-secondary);
+  padding: 4px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border-color);
 }
 
-.cert-icon.linkedin {
-  color: #0077b5;
-}
-
-.cert-icon.fcc {
-  color: #ffffff;
-}
-
-.cert-icon.cisco {
-  color: #1ba0d7;
-}
-
-.cert-icon.google {
-  color: #4285f4;
-}
-
-.cert-icon.tesda {
-  color: #facc15;
-}
-
-.cert-details {
+.cert-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
   flex-grow: 1;
 }
 
-.cert-category {
-  font-size: 0.75rem;
+.cert-card-category {
+  font-size: 0.65rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: var(--accent);
-  font-weight: 600;
-  display: block;
-  margin-bottom: 0.25rem;
+  font-weight: 700;
 }
 
-.cert-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+.cert-card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--text-primary);
+  line-height: 1.35;
 }
 
-.cert-issuer {
+.cert-card-issuer {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.cert-card-desc {
   font-size: 0.85rem;
   color: var(--text-secondary);
+  line-height: 1.6;
+  margin-top: 0.4rem;
 }
 
-.cert-action {
+.cert-card-footer {
   margin-top: auto;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  opacity: 0.8;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
 }
 
-.cert-card:hover .cert-action {
-  opacity: 1;
-  gap: 8px;
-  /* subtle slide effect */
+.cert-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.cert-card-link:hover {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* Specific icon colors */
+.cert-icon--linkedin {
+  color: #0077b5;
+}
+
+.cert-icon--fcc {
+  color: #ffffff;
+}
+
+.cert-icon--cisco {
+  color: #1ba0d7;
+}
+
+.cert-icon--google {
+  color: #4285f4;
+}
+
+.cert-icon--tesda {
+  color: #facc15;
+}
+
+@media (max-width: 640px) {
+  .cert-formal-card {
+    flex: 0 0 290px;
+    padding: 1.4rem;
+  }
+
+  .cert-card-title {
+    font-size: 1.05rem;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* Experience */
+.experience-section {
+  position: relative;
+  /* Clip logos to section bounds */
+  /* user-select: none;  <-- Removed */
+}
+
+/* Foreground wrapper */
+.experience-content {
+  position: relative;
+  z-index: 2;
+  /* pointer-events: none; <-- Removed */
 }

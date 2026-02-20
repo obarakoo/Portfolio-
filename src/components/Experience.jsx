@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import ScrollAnimate from "./ScrollAnimate";
 
 const experienceData = [
@@ -21,9 +21,7 @@ const experienceData = [
     {
         role: "Real Estate Assistant",
         company: "Mepangilinan Real Estate Brokerage Corp.",
-        duration: "2021 — 2022", // Approximate dates, adjusting to fit chronology if needed or leaving as is. User didn't specify dates, so I will infer or leave blank if unsure. Let's make it sit before Everglow.
-        // Actually, looking at the user's previous data, "Education" was 2021-2024. 
-        // I will add Mepangilinan.
+        duration: "2021 — 2022",
         type: "On-site",
         description: "Assisted in managing property listings and client documentation. Streamlined administrative processes to improve operational efficiency.",
     },
@@ -38,30 +36,39 @@ const experienceData = [
 ];
 
 const Experience = () => {
+    const sectionRef = useRef(null);
+
     return (
-        <section id="experience" className="section experience-section">
-            <ScrollAnimate>
-                <h2 className="section-title">Experience & Education</h2>
-            </ScrollAnimate>
-            <div className="timeline">
-                {experienceData.map((item, index) => (
-                    <ScrollAnimate key={index}>
-                        <div className="timeline-item">
-                            <div className="timeline-marker"></div>
-                            <div className="timeline-content">
-                                <h3 className="role-title">{item.role}</h3>
-                                <div className="company-meta">
-                                    <span className="company-name">{item.company}</span>
-                                    <span className="dot">·</span>
-                                    <span className="duration">{item.duration}</span>
-                                    <span className="dot">·</span>
-                                    <span className="type">{item.type}</span>
+        <section
+            id="experience"
+            className="section experience-section"
+            ref={sectionRef}
+        >
+            {/* ── Content layer (foreground) ── */}
+            <div className="experience-content">
+                <ScrollAnimate>
+                    <h2 className="section-title">Experience &amp; Education</h2>
+                </ScrollAnimate>
+                <div className="timeline">
+                    {experienceData.map((item, index) => (
+                        <ScrollAnimate key={index}>
+                            <div className="timeline-item">
+                                <div className="timeline-marker"></div>
+                                <div className="timeline-content">
+                                    <h3 className="role-title">{item.role}</h3>
+                                    <div className="company-meta">
+                                        <span className="company-name">{item.company}</span>
+                                        <span className="dot">·</span>
+                                        <span className="duration">{item.duration}</span>
+                                        <span className="dot">·</span>
+                                        <span className="type">{item.type}</span>
+                                    </div>
+                                    <p className="role-description">{item.description}</p>
                                 </div>
-                                <p className="role-description">{item.description}</p>
                             </div>
-                        </div>
-                    </ScrollAnimate>
-                ))}
+                        </ScrollAnimate>
+                    ))}
+                </div>
             </div>
         </section>
     );
