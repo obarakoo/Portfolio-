@@ -714,9 +714,29 @@ ul {
 }
 
 .timeline {
-  border-left: 2px solid var(--border-color);
   padding-left: 2rem;
   position: relative;
+}
+
+/* Static fallback line for non-animated timeline */
+.timeline:not(.timeline--animated) {
+  border-left: 2px solid var(--border-color);
+}
+
+/* Animated line sits behind items, drawn by scaleY motion */
+.timeline--animated {
+  border-left: none;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: top;
+  opacity: 0.5;
 }
 
 .timeline-item {
@@ -733,6 +753,7 @@ ul {
   border-radius: 50%;
   background: var(--accent);
   border: 4px solid var(--bg-primary);
+  box-shadow: 0 0 0 0 var(--accent-glow);
 }
 
 .role-title {

@@ -1,5 +1,8 @@
 import React, { useRef } from "react";
-import ScrollAnimate from "./ScrollAnimate";
+import { motion, useInView } from "framer-motion";
+
+const EASING = [0.17, 0.55, 0.55, 1];
+const DURATION = 0.6;
 
 const experienceData = [
     {
@@ -37,6 +40,9 @@ const experienceData = [
 
 const Experience = () => {
     const sectionRef = useRef(null);
+    const isInView = useInView(sectionRef, { once: false, amount: 0.15 });
+    const titleRef = useRef(null);
+    const titleInView = useInView(titleRef, { once: false, amount: 0.5 });
 
     return (
         <section
@@ -44,33 +50,75 @@ const Experience = () => {
             className="section experience-section"
             ref={sectionRef}
         >
-            {/* ── Content layer (foreground) ── */}
             <div className="experience-content">
-                <ScrollAnimate>
+                {/* Animated Section Title */}
+                <motion.div
+                    ref={titleRef}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: DURATION, ease: EASING }}
+                >
                     <h2 className="section-title">Experience &amp; Education</h2>
-                </ScrollAnimate>
-                <div className="timeline">
+                </motion.div>
+
+                {/* Timeline wrapper — vertical line drawn by clip-path */}
+                <div className="timeline timeline--animated">
+                    {/* Animated growing vertical line */}
+                    <motion.div
+                        className="timeline-line"
+                        initial={{ scaleY: 0 }}
+                        animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
+                        transition={{ duration: 1.2, ease: EASING, transformOrigin: "top" }}
+                    />
+
                     {experienceData.map((item, index) => (
-                        <ScrollAnimate key={index}>
-                            <div className="timeline-item">
-                                <div className="timeline-marker"></div>
-                                <div className="timeline-content">
-                                    <h3 className="role-title">{item.role}</h3>
-                                    <div className="company-meta">
-                                        <span className="company-name">{item.company}</span>
-                                        <span className="dot">·</span>
-                                        <span className="duration">{item.duration}</span>
-                                        <span className="dot">·</span>
-                                        <span className="type">{item.type}</span>
-                                    </div>
-                                    <p className="role-description">{item.description}</p>
-                                </div>
-                            </div>
-                        </ScrollAnimate>
+                        <TimelineItem key={index} item={item} index={index} />
                     ))}
                 </div>
             </div>
         </section>
+    );
+};
+
+const TimelineItem = ({ item, index }) => {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: false, amount: 0.3 });
+
+    return (
+        <motion.div
+            ref={ref}
+            className="timeline-item"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{
+                duration: DURATION,
+                ease: EASING,
+                delay: index * 0.1,
+            }}
+        >
+            {/* Pulsing blue dot */}
+            <motion.div
+                className="timeline-marker"
+                initial={{ scale: 1 }}
+                animate={inView ? { scale: [1, 1.5, 1] } : { scale: 1 }}
+                transition={{
+                    duration: 1.5,
+                    ease: "easeInOut",
+                    delay: index * 0.5 + 0.3,
+                }}
+            />
+            <div className="timeline-content">
+                <h3 className="role-title">{item.role}</h3>
+                <div className="company-meta">
+                    <span className="company-name">{item.company}</span>
+                    <span className="dot">·</span>
+                    <span className="duration">{item.duration}</span>
+                    <span className="dot">·</span>
+                    <span className="type">{item.type}</span>
+                </div>
+                <p className="role-description">{item.description}</p>
+            </div>
+        </motion.div>
     );
 };
 
