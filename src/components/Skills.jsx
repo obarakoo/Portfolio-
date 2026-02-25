@@ -32,14 +32,17 @@ const Skills = () => {
     return (
         <section id="skills" className="section skills-section">
             {/* Animated Section Title */}
-            <motion.div
-                ref={titleRef}
-                initial={{ opacity: 0, y: 20 }}
-                animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: DURATION, ease: EASING }}
-            >
-                <h2 className="section-title">Technical Skills</h2>
-            </motion.div>
+            <div className="section-header">
+                <motion.div
+                    ref={titleRef}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    transition={{ duration: DURATION, ease: EASING }}
+                >
+                    <h2 className="section-title">Technical Skills</h2>
+                    <p className="section-subtitle">Tools and technologies I use to build and test software</p>
+                </motion.div>
+            </div>
 
             <div className="skills-grid-container">
                 {skillsData.map((category, index) => {

@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import SectionWrapper from "./SectionWrapper";
 import { SiLinkedin, SiFreecodecamp, SiGoogle, SiCisco } from "react-icons/si";
-import { FaCertificate, FaExternalLinkAlt } from "react-icons/fa";
+import { FaCertificate, FaExternalLinkAlt, FaTimes, FaTh } from "react-icons/fa";
 import ScrollAnimate from "./ScrollAnimate";
+import { motion, AnimatePresence } from "framer-motion";
 
 const certificationsData = [
     {
@@ -88,68 +89,126 @@ const certificationsData = [
     },
 ];
 
+/* ── Reusable single card ── */
+const CertCard = ({ cert, index, id }) => (
+    <motion.div
+        key={id}
+        className="cert-formal-card"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 0.35, delay: index * 0.06 }}
+    >
+        <div className="cert-card-header">
+            <div className="cert-card-icon">{cert.icon}</div>
+            <div className="cert-card-badge">{cert.year}</div>
+        </div>
+        <div className="cert-card-body">
+            <span className="cert-card-category">{cert.category}</span>
+            <h3 className="cert-card-title">{cert.title}</h3>
+            <p className="cert-card-issuer">{cert.issuer}</p>
+            <p className="cert-card-desc">{cert.description}</p>
+        </div>
+        <div className="cert-card-footer">
+            <a
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cert-card-link"
+                onClick={(e) => e.stopPropagation()}
+            >
+                View Certificate <FaExternalLinkAlt />
+            </a>
+        </div>
+    </motion.div>
+);
+
 const Certifications = () => {
+    const [showAll, setShowAll] = useState(false);
+
     return (
         <SectionWrapper id="certifications" className="certifications-section">
             <ScrollAnimate>
-                <h2 className="section-title">Certification Vault</h2>
-                <p className="cert-subtitle">A collection of credentials earned along the journey.</p>
+                <div className="section-header">
+                    <h2 className="section-title">Certification Vault</h2>
+                    <p className="section-subtitle">A collection of credentials earned along the journey.</p>
+                </div>
             </ScrollAnimate>
 
-            <div className="cert-scroll-container">
-                <div className="cert-scroll-track">
-                    {/* Render original list */}
-                    {certificationsData.map((cert, index) => (
-                        <div key={`orig-${index}`} className="cert-formal-card">
-                            <div className="cert-card-header">
-                                <div className="cert-card-icon">{cert.icon}</div>
-                                <div className="cert-card-badge">{cert.year}</div>
-                            </div>
-                            <div className="cert-card-body">
-                                <span className="cert-card-category">{cert.category}</span>
-                                <h3 className="cert-card-title">{cert.title}</h3>
-                                <p className="cert-card-issuer">{cert.issuer}</p>
-                                <p className="cert-card-desc">{cert.description}</p>
-                            </div>
-                            <div className="cert-card-footer">
-                                <a
-                                    href={cert.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="cert-card-link"
-                                >
-                                    View Certificate <FaExternalLinkAlt />
-                                </a>
+            {/* ── Marquee scroll (default) ── */}
+            <AnimatePresence>
+                {!showAll && (
+                    <motion.div
+                        key="marquee"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <div className="cert-scroll-container">
+                            <div className="cert-scroll-track">
+                                {/* Original list */}
+                                {certificationsData.map((cert, index) => (
+                                    <CertCard key={`orig-${index}`} cert={cert} index={index} id={`orig-${index}`} />
+                                ))}
+                                {/* Duplicate for seamless loop */}
+                                {certificationsData.map((cert, index) => (
+                                    <CertCard key={`dup-${index}`} cert={cert} index={index} id={`dup-${index}`} />
+                                ))}
                             </div>
                         </div>
-                    ))}
-                    {/* Render duplicate list for seamless infinite loop */}
-                    {certificationsData.map((cert, index) => (
-                        <div key={`dup-${index}`} className="cert-formal-card">
-                            <div className="cert-card-header">
-                                <div className="cert-card-icon">{cert.icon}</div>
-                                <div className="cert-card-badge">{cert.year}</div>
-                            </div>
-                            <div className="cert-card-body">
-                                <span className="cert-card-category">{cert.category}</span>
-                                <h3 className="cert-card-title">{cert.title}</h3>
-                                <p className="cert-card-issuer">{cert.issuer}</p>
-                                <p className="cert-card-desc">{cert.description}</p>
-                            </div>
-                            <div className="cert-card-footer">
-                                <a
-                                    href={cert.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="cert-card-link"
-                                >
-                                    View Certificate <FaExternalLinkAlt />
-                                </a>
-                            </div>
+
+                        {/* Show All Button */}
+                        <div className="cert-actions">
+                            <motion.button
+                                className="cert-show-all-btn"
+                                onClick={() => setShowAll(true)}
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.97 }}
+                            >
+                                <FaTh style={{ marginRight: "8px" }} />
+                                Show All {certificationsData.length} Certifications
+                            </motion.button>
                         </div>
-                    ))}
-                </div>
-            </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* ── Expanded full grid ── */}
+            <AnimatePresence>
+                {showAll && (
+                    <motion.div
+                        key="grid"
+                        className="cert-grid-expanded"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                    >
+                        {/* Sticky Close Button */}
+                        <div className="cert-grid-bar">
+                            <span className="cert-grid-count">
+                                {certificationsData.length} Certificates
+                            </span>
+                            <motion.button
+                                className="cert-close-btn"
+                                onClick={() => setShowAll(false)}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <FaTimes style={{ marginRight: "6px" }} />
+                                Close
+                            </motion.button>
+                        </div>
+
+                        <div className="cert-full-grid">
+                            {certificationsData.map((cert, index) => (
+                                <CertCard key={`grid-${index}`} cert={cert} index={index} id={`grid-${index}`} />
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </SectionWrapper>
     );
 };

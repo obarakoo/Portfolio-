@@ -23,9 +23,11 @@ const ProjectCard = ({ project }) => {
     return (
         <motion.div
             layout
-            transition={{ layout: { duration: 0.3 } }}
+            transition={{ layout: { type: "spring", stiffness: 200, damping: 20 } }}
             onClick={() => setIsOpen(!isOpen)}
             className={`project-card ${isOpen ? "expanded" : ""}`}
+            whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)" }}
+            whileTap={{ scale: 0.98 }}
         >
             <motion.div layout className="card-header">
                 <div className="card-visual-placeholder">

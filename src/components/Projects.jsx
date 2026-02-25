@@ -66,7 +66,10 @@ const Projects = () => {
     return (
         <section id="projects" className="section projects-section">
             <ScrollAnimate>
-                <h2 className="section-title">Case Studies & Projects</h2>
+                <div className="section-header">
+                    <h2 className="section-title">Case Studies &amp; Projects</h2>
+                    <p className="section-subtitle">Real problems solved with engineering discipline and QA precision</p>
+                </div>
             </ScrollAnimate>
 
             <motion.div

@@ -51,15 +51,17 @@ const Experience = () => {
             ref={sectionRef}
         >
             <div className="experience-content">
-                {/* Animated Section Title */}
-                <motion.div
-                    ref={titleRef}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    transition={{ duration: DURATION, ease: EASING }}
-                >
-                    <h2 className="section-title">Experience &amp; Education</h2>
-                </motion.div>
+                <div className="section-header">
+                    <motion.div
+                        ref={titleRef}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                        transition={{ duration: DURATION, ease: EASING }}
+                    >
+                        <h2 className="section-title">Experience &amp; Education</h2>
+                        <p className="section-subtitle">A timeline of my professional journey</p>
+                    </motion.div>
+                </div>
 
                 {/* Timeline wrapper — vertical line drawn by clip-path */}
                 <div className="timeline timeline--animated">

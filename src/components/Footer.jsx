@@ -36,8 +36,8 @@ const Footer = () => {
                         <SiGmail />
                     </a>
                 </div>
-                <div className="resume-link-footer" style={{ marginTop: '1rem' }}>
-                    <a href="/resume.pdf" download className="text-slate-400 hover:text-blue-400 text-sm transition-colors border-b border-transparent hover:border-blue-400">
+                <div className="resume-link-footer">
+                    <a href="/resume.pdf" download className="secondary-button" style={{ display: 'inline-flex', marginTop: '0' }}>
                         Download Resume
                     </a>
                 </div>

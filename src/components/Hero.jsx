@@ -37,9 +37,9 @@ const Hero = () => {
         >
           <ScrollAnimate>
             <div className="profile-wrapper character-vibe">
+              <div className="hero-aura"></div>
               <div className="profile-image-container">
                 <img src={profileImage} alt="Alfred Profile" className="profile-image" />
-                <div className="profile-glow-overlay"></div>
               </div>
               {/* Orbiting Tech Icons */}
               <div className="orbit-ring">
@@ -61,15 +61,18 @@ const Hero = () => {
                         dragElastic={0.6}
                         dragSnapToOrigin
                         whileHover={{
-                          scale: 1.25,
-                          rotate: [-5, 5, -5], // Subtle wobble
-                          boxShadow: "0 0 30px var(--accent)",
+                          scale: 1.3,
+                          rotate: 15,
+                          boxShadow: "0 0 40px var(--accent)",
                           backgroundColor: "var(--accent)",
                           color: "white",
                           borderColor: "white",
-                          transition: { duration: 0.3 }
+                          transition: { type: "spring", stiffness: 300 }
                         }}
                         whileTap={{ scale: 0.9, cursor: "grabbing" }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
                       >
                         <skill.icon />
                       </motion.div>

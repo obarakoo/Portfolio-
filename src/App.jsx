@@ -6,9 +6,15 @@ import Experience from "./components/Experience";
 import Certifications from "./components/Certifications";
 import Footer from "./components/Footer";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 function App() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
   const [theme, setTheme] = useState("dark");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -38,6 +44,14 @@ function App() {
 
   return (
     <div className={`app-container ${theme}`}>
+      <div className="bg-blobs">
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+      </div>
+
+      <div className="scroll-progress">
+        <motion.div className="scroll-bar" style={{ scaleX }} />
+      </div>
 
       {/* Mobile Menu Overlay */}
       <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>
