@@ -42,17 +42,23 @@ const Hero = () => {
                 <img src={profileImage} alt="Alfred Profile" className="profile-image" />
               </div>
               {/* Orbiting Tech Icons */}
-              <div className="orbit-ring">
+              <motion.div
+                className="orbit-ring"
+                animate={{ rotate: 360 }}
+                transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
+              >
                 {allSkills.map((skill, index) => {
                   const startAngle = (360 / totalSkills) * index;
                   return (
-                    <div
+                    <motion.div
                       key={index}
                       className="orbit-item"
                       title={skill.name}
                       style={{
                         "--start-angle": `${startAngle}deg`,
                       }}
+                      animate={{ rotate: -360 }} // Reverse rotation to keep icons upright
+                      transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
                     >
                       <motion.div
                         className="orbit-icon-inner"
@@ -76,10 +82,10 @@ const Hero = () => {
                       >
                         <skill.icon />
                       </motion.div>
-                    </div>
+                    </motion.div>
                   );
                 })}
-              </div>
+              </motion.div>
             </div>
           </ScrollAnimate>
         </motion.div>
@@ -96,8 +102,8 @@ const Hero = () => {
           </ScrollAnimate>
 
           <ScrollAnimate>
-            <h2 className="hero-headline">
-              Bridging the Gap Between Quality Assurance and Development
+            <h2 className="hero-headline" style={{ fontSize: "2.5rem", fontWeight: "700", marginBottom: "1.5rem" }}>
+              Bridging the Gap Between <span className="text-gradient">Quality Assurance</span> and <span className="text-gradient">Development</span>
             </h2>
           </ScrollAnimate>
 

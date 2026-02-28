@@ -7,6 +7,7 @@ import Certifications from "./components/Certifications";
 import Footer from "./components/Footer";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { motion, useScroll, useSpring } from "framer-motion";
+import Cursor from "./components/Cursor";
 
 function App() {
   const { scrollYProgress } = useScroll();
@@ -44,6 +45,8 @@ function App() {
 
   return (
     <div className={`app-container ${theme}`}>
+      <Cursor />
+
       <div className="bg-blobs">
         <div className="blob blob-1"></div>
         <div className="blob blob-2"></div>

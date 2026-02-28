@@ -39,10 +39,10 @@ const ParticlesBackground = () => {
             },
             particles: {
                 color: {
-                    value: "#2563eb", // Accent color
+                    value: "#00f0ff", // Accent color
                 },
                 links: {
-                    color: "#2563eb",
+                    color: "#00f0ff",
                     distance: 150,
                     enable: true,
                     opacity: 0.3,
