@@ -20,6 +20,9 @@ const getIcon = (name) => {
 const ProjectCard = ({ project }) => {
     const [isOpen, setIsOpen] = useState(false);
 
+    // Phase 3: Layered Card Design - Background Image
+    const bgImage = project.image || "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=800&auto=format&fit=crop";
+
     return (
         <motion.div
             layout
@@ -29,12 +32,17 @@ const ProjectCard = ({ project }) => {
             whileHover={{ y: -5, boxShadow: "0 20px 40px rgba(0, 0, 0, 0.4)" }}
             whileTap={{ scale: 0.98 }}
         >
+            <div className="project-layer-bg">
+                <div
+                    className="project-layer-img"
+                    style={{ backgroundImage: `url(${bgImage})` }}
+                ></div>
+                <div className="project-layer-overlay"></div>
+            </div>
+
             <motion.div layout className="card-header">
-                <div className="card-visual-placeholder">
-                    {/* Visual placeholder - could be image or pattern */}
-                    <span className="visual-tag">{project.category}</span>
-                </div>
                 <div className="card-title-row">
+                    <span className="visual-tag">{project.category}</span>
                     <motion.h3 layout="position" className="project-title">
                         {project.title}
                     </motion.h3>

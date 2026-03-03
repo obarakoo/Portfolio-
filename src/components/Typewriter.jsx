@@ -37,13 +37,15 @@ const Typewriter = () => {
     }, [subIndex, index, reverse]);
 
     return (
-        <h2 className="hero-headline-typewriter">
-            Hi, I am <span className="highlight-text">Alfred</span> <br />
+        <h1 className="hero-headline-typewriter">
+            <h1 style={{ fontSize: "2.2rem", fontWeight: "bold", margin: "1rem 0 0.5rem 0" }}>
+                Hi, I am Alfred
+            </h1>
             <span className="typewriter-text">
                 {words[index].substring(0, subIndex)}
                 <span className={`cursor ${blink ? "blink-on" : "blink-off"}`}>|</span>
             </span>
-        </h2>
+        </h1>
     );
 };
 

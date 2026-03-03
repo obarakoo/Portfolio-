@@ -5,6 +5,28 @@ import { motion } from "framer-motion";
 
 const projectsData = [
     {
+        title: "Boss Burger Landing Page",
+        category: "Frontend Development",
+        tech: ["HTML5", "CSS3", "Font Awesome"],
+        challenge:
+            "Building a high-impact, visual-first landing page for a restaurant that maintains brand consistency while providing a seamless user experience.",
+        qaInsight:
+            "Implemented a fully responsive dark-themed UI with high-contrast elements for accessibility. Optimized asset presentation to ensure smooth scrolling and visual clarity.",
+        links: [{ label: "Live Demo", url: "https://obarakoo.github.io/Boss-burger/" }],
+        image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        title: "Alibijaban Travel Landing Page",
+        category: "Interactive Design",
+        tech: ["HTML5", "CSS3", "Swiper.js", "Glassmorphism"],
+        challenge:
+            "Creating an immersive, visually rich travel experience with complex interactive elements like glassmorphism and multi-layered swiper carousels.",
+        qaInsight:
+            "Fine-tuned interactive components for smooth touch and mouse responses. Validated glassmorphism effects for cross-browser consistency and visual depth.",
+        links: [{ label: "Live Demo", url: "https://obarakoo.github.io/Basic-landing-page/" }],
+        image: "https://images.unsplash.com/photo-1518509562904-e7ef99cdcc86?q=80&w=800&auto=format&fit=crop",
+    },
+    {
         title: "Automated Testing Suite",
         category: "QA Automation",
         tech: ["Playwright", "JavaScript"],
@@ -67,7 +89,7 @@ const Projects = () => {
         <section id="projects" className="section projects-section">
             <ScrollAnimate>
                 <div className="section-header">
-                    <h2 className="section-title">Case Studies &amp; Projects</h2>
+                    <h2 className="section-title" style={{ textWrap: "balance" }}>Case Studies &amp; Projects</h2>
                     <p className="section-subtitle">Real problems solved with engineering discipline and QA precision</p>
                 </div>
             </ScrollAnimate>

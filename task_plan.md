@@ -1,49 +1,28 @@
-# Task Plan: Premium Portfolio Redesign
+# Task Plan
 
 ## Goal
-Redesign the existing React/Vite portfolio into a stunning, premium-looking website using the planning-with-files workflow.
-
-## Current Phase
-Completed
+Implement Phase 1 to Phase 5 improvements to the Portfolio project. 
 
 ## Phases
 
-### Phase 1: Requirements & Discovery
-- [x] Understand user intent (Premium redesign)
-- [x] Review existing codebase architecture (`src/` folder structure, `index.css`, `App.jsx`, etc.)
-- [x] Document findings in findings.md
-- **Status:** complete
+### Phase 1: Structural & Debugging Fixes
+- [ ] Fix Container Overflow (.card or .project-item): Remove fixed height values, use min-height instead, add top/bottom padding 24px.
+- [ ] Standardize Tech Stack Icons: wrap HTML, CSS, JS in a flex container, set height: 24px.
+- [x] Refine Typography: "Case Studies & Projects" uses `text-wrap: balance`.
 
-### Phase 2: Planning & Structure
-- [x] Define technical approach and design system (colors, typography, dynamic elements)
-- [x] Plan component updates (Hero, About, Projects, Contact, etc.)
-- [x] Document decisions with rationale
-- **Status:** complete
+### Phase 2: Responsive Button Logic
+- [ ] Mobile navigation button (`.btn-mobile-nav`) shown only on mobile (<768px). Desktop only buttons hidden on mobile.
 
-### Phase 3: Implementation
-- [x] Execute the plan step by step updating components and styles
-- [x] Enhance animations using Framer Motion (already in package.json) and styling
-- [x] Test incrementally using local dev server
-- **Status:** complete
+### Phase 3: Visual Interface Overhaul (Layered Card Design)
+- [ ] Add background image inside each card, `background-size: cover`, `background-position: center`.
+- [ ] Glass & Gradient Overlay: `linear-gradient(to top, rgba(0,0,0,0.9), transparent)` over the image.
+- [ ] Hover Interaction: `transform: scale(1.05)` on the image.
 
-### Phase 4: Testing & Verification
-- [x] Verify all requirements met (stunning, premium look)
-- [x] Document test results in progress.md
-- [x] Fix any visual or functional issues
-- **Status:** complete
+### Phase 4: Grid & Layout Strategy
+- [ ] Desktop (>1024px): 2 or 3 columns (`grid-template-columns: 1fr 1fr;`)
+- [ ] Tablet (768px - 1024px): 2 columns, reduced gap.
+- [ ] Mobile (<767px): 1 column, stack vertically, increase height.
 
-### Phase 5: Delivery
-- [x] Final review of the website in the browser
-- [x] Ensure deliverable is complete
-- **Status:** complete
-
-## Decisions Made
-| Decision | Rationale |
-|----------|-----------|
-| Use custom cursor | Achieves the premium 2026 Glassmorphism feel |
-| Neon hover borders | Gives components a stunning glowing look without heavy JS |
-
-## Errors Encountered
-| Error | Attempt | Resolution |
-|-------|---------|------------|
-|  |  |  |
+### Phase 5: Quality Assurance (QA)
+- [ ] Interaction Check: "Click to expand" text is vertically aligned, no overlap.
+- [ ] Cross-browser check / asset optimization check (WebP).

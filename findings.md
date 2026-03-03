@@ -1,27 +1,7 @@
-# Findings & Decisions
+# Findings
 
-## Requirements
-- Redesign existing portfolio
-- Stunning website, premium looks
-- Use the `planning-with-files` skill and `templates` workflow
+## Research & Discoveries
 
-## Research Findings
-- Project uses React, Vite, Framer Motion, react-icons, and tsparticles.
-- Entry points: `src/main.jsx`, `src/App.jsx`, `src/index.css`.
-- Components exist in `src/components`.
-
-## Technical Decisions
-| Decision | Rationale |
-|----------|-----------|
-|          |           |
-
-## Issues Encountered
-| Issue | Resolution |
-|-------|------------|
-|       |            |
-
-## Resources
-- 
-
-## Visual/Browser Findings
-- 
+* The Project portfolio lacks explicit image assets. For Phase 3, an Unsplash URL placeholder was included in `ProjectCard.jsx`.
+* For Asset Optimization (Phase 5), the user should upload or process future project images exactly as `.webp` before injecting them into `Projects.jsx` array logic.
+* Safari cross-browser support was included via explicit `-webkit-backdrop-filter`.
