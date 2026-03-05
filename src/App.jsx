@@ -5,8 +5,8 @@ import Projects from "./components/Projects";
 import Experience from "./components/Experience";
 import Certifications from "./components/Certifications";
 import Footer from "./components/Footer";
-import { FaMoon, FaSun } from "react-icons/fa";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import Cursor from "./components/Cursor";
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
     restDelta: 0.001
   });
   const [theme, setTheme] = useState("dark");
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const saved = window.localStorage.getItem("portfolio-theme");
@@ -31,6 +31,29 @@ function App() {
     window.localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
 
+  // Close menu on resize to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
@@ -42,6 +65,14 @@ function App() {
     { id: "certifications", label: "Certifications" },
     { id: "experience", label: "Experience" }
   ];
+
+  const handleNavClick = (id) => {
+    setMenuOpen(false);
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 300);
+  };
 
   return (
     <div className={`app-container ${theme}`}>
@@ -56,28 +87,11 @@ function App() {
         <motion.div className="scroll-bar" style={{ scaleX }} />
       </div>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`mobile-menu-overlay ${isMenuOpen ? 'open' : ''}`}>
-        {navItems.map((item) => (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            className="mobile-menu-link"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {item.label}
-          </a>
-        ))}
-        <button onClick={() => { toggleTheme(); setIsMenuOpen(false); }} className="theme-toggle" style={{ transform: 'scale(1.5)' }}>
-          {theme === "dark" ? <FaSun /> : <FaMoon />}
-        </button>
-      </div>
-
       <nav className="navbar">
         <div className="nav-logo">AP.</div>
 
         {/* Desktop Nav */}
-        <div className="nav-links">
+        <div className="nav-links nav-links--desktop">
           {navItems.map((item) => (
             <motion.a
               key={item.id}
@@ -100,11 +114,58 @@ function App() {
           </motion.button>
         </div>
 
-        {/* Mobile Hamburger */}
-        <button className="hamburger-btn" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? "✕" : "☰"}
-        </button>
+        {/* Mobile Controls */}
+        <div className="nav-mobile-controls">
+          <motion.button
+            whileHover={{ scale: 1.1, rotate: 15 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleTheme}
+            className="theme-toggle"
+            aria-label="Toggle Theme"
+          >
+            {theme === "dark" ? <FaSun /> : <FaMoon />}
+          </motion.button>
+          <motion.button
+            className="hamburger-btn"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            whileTap={{ scale: 0.9 }}
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </motion.button>
+        </div>
       </nav>
+
+      {/* Mobile Fullscreen Menu Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="mobile-menu-overlay"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <nav className="mobile-menu-nav">
+              {navItems.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  className="mobile-nav-link"
+                  onClick={() => handleNavClick(item.id)}
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.07, duration: 0.3 }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  <span className="mobile-nav-index">0{index + 1}</span>
+                  {item.label}
+                </motion.button>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="main-content">
         <Hero />
