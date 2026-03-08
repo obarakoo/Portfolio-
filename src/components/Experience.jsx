@@ -17,7 +17,7 @@ const experienceData = [
         role: "Content Moderator",
         company: "Everglow AI",
         duration: "2022 — 2024",
-        type: "Remote",
+        type: "On-site",
         description:
             "Ensured platform safety and data integrity by reviewing user-generated content. Maintained high accuracy rates in a fast-paced environment, contributing to cleaner datasets for AI training models.",
     },
