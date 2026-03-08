@@ -569,39 +569,35 @@ ul {
 }
 
 /* Phase 1 & 3: Project Card Styling */
+/* Phase 1 & 3: Project Card Styling */
 .project-card {
-  background: var(--glass-bg);
+  background: var(--bg-card);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   box-shadow: inset 0 1px 0 var(--glass-highlight), 0 20px 40px rgba(0, 0, 0, 0.2);
-
-  /* Safari fix */
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-
-  /* Phase 1 fixes */
-  min-height: 400px;
-  /* remove fixed height, use min-height */
-  padding: 24px 0;
-  /* padding 24px top and bottom */
-
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  min-height: 420px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   cursor: pointer;
 }
 
-@media (max-width: 767px) {
-  .project-card {
-    min-height: 480px;
-    /* increase card height for visibility stacked */
+.project-card.expanded {
+  grid-column: span 2;
+}
+
+@media (max-width: 1024px) {
+  .project-card.expanded {
+    grid-column: span 1;
   }
 }
 
-/* Phase 3 visual overhaul */
 .project-layer-bg {
   position: absolute;
   top: 0;
@@ -617,7 +613,7 @@ ul {
   height: 100%;
   background-size: cover;
   background-position: center;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .project-layer-overlay {
@@ -626,111 +622,214 @@ ul {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  background: linear-gradient(to top, 
+    rgba(2, 2, 2, 1) 0%, 
+    rgba(2, 2, 2, 0.8) 40%, 
+    rgba(2, 2, 2, 0.2) 100%
+  );
   z-index: 1;
+  transition: opacity 0.5s ease;
 }
 
 .project-card:hover .project-layer-img {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 .project-card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 0 var(--glass-highlight), 0 30px 60px rgba(255, 255, 255, 0.05);
+  transform: translateY(-12px);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
 }
 
-/* Make content z-index 2 so it sits above the background */
 .card-header,
 .card-content,
 .card-expand-hint {
   position: relative;
   z-index: 2;
-  padding: 0 24px;
+  padding: 0 32px;
 }
 
-/* Phase 1: Tech Stack Icons Standardization */
-.tech-stack-mini {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
+.card-header {
+  padding-bottom: 24px;
 }
 
-.tech-icon-mini {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.tech-icon-mini svg {
-  height: 24px;
-  width: 24px;
-}
-
-/* Phase 5: QA Check - Interaction Alignment */
-.card-expand-hint {
-  text-align: center;
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  padding-top: 1rem;
-  margin-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.project-content {
-  padding: 2.5rem;
+.visual-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-cyber);
+  background: rgba(0, 240, 255, 0.1);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 12px;
+  border: 1px solid rgba(0, 240, 255, 0.2);
 }
 
 .project-title {
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.tech-stack-mini {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.tech-icon-mini {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  display: flex;
+  transition: color 0.3s ease;
+}
+
+.project-card:hover .tech-icon-mini {
   color: var(--text-primary);
 }
 
-.project-description {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.project-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-}
-
-.project-tag {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
+.tech-more {
   font-size: 0.8rem;
   color: var(--text-secondary);
+  font-weight: 600;
 }
 
-.project-links {
+.card-content {
+  padding-bottom: 32px;
+  overflow: hidden;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+@media (max-width: 640px) {
+  .content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-label {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--text-primary);
 }
 
-.project-link {
+.label-icon {
+  font-size: 0.9rem;
+  color: var(--accent-cyber);
+}
+
+.section-label h4 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.discussion-section p, .qa-insight-section p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.tech-section {
+  margin-top: 32px;
+}
+
+.tech-section h4 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tech-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: var(--text-primary);
-  font-weight: 600;
-  font-size: 0.9rem;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
   transition: all 0.3s ease;
 }
 
-.project-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+.tech-tag:hover {
+  background: var(--text-primary);
+  color: var(--bg-primary);
 }
+
+.tag-icon {
+  display: flex;
+  font-size: 1rem;
+}
+
+.card-links {
+  display: flex;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.project-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  padding: 12px 24px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.project-btn:last-child:not(:first-child) {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+}
+
+.project-btn:last-child:not(:first-child):hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-primary);
+}
+
+.card-expand-hint {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 
 /* Experience Ultimate Timeline 2026 */
 .experience-timeline {

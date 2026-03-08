@@ -5,6 +5,47 @@ import { motion } from "framer-motion";
 
 const projectsData = [
     {
+        title: "Movie-koto",
+        category: "Movie Streaming",
+        tech: ["React", "Archive.org API", "Ghibli API", "Shared Context API"],
+        challenge:
+            "Creating a unified streaming experience by integrating multiple third-party APIs (Archive.org & Ghibli) while managing a complex global state for 'My List' functionality.",
+        qaInsight:
+            "Implemented cross-domain data mapping to standardize movie objects from different sources. Optimized video player buffering and verified API fallbacks for high availability.",
+        links: [
+            { label: "Live Demo", url: "https://obarakoo.github.io/Movie-koto/" },
+            { label: "View Code", url: "https://github.com/obarakoo/Movie-koto.git" }
+        ],
+        image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        title: "Fresh Grocer E-commerce",
+        category: "E-commerce Development",
+        tech: ["React", "CSS3", "Framer Motion", "Context API"],
+        challenge:
+            "Developing a full-featured e-commerce platform with complex state management for cart operations, product filtering, and a seamless checkout experience.",
+        qaInsight:
+            "Implemented robust state handling using Context API. Verified cart persistence and optimized product image loading for performance. Conducted thorough testing of the checkout flow.",
+        links: [
+            { label: "Live Demo", url: "https://obarakoo.github.io/FreshGrocer/" },
+            { label: "View Code", url: "https://github.com/obarakoo/fresh-grocer-app" }
+        ],
+        image: "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop",
+    },
+    {
+        title: "Modern Music Player",
+        category: "Web Application",
+        tech: ["React", "Node", "Framer Motion", "Web Audio API"],
+        challenge:
+            "Building a highly interactive music player with real-time audio visualization, playlist management, and smooth transitions between tracks.",
+        qaInsight:
+            "Optimized audio buffering for gapless playback. Validated across multiple devices to ensure consistent audio quality and UI responsiveness. Implemented intuitive playback controls.",
+        links: [
+            { label: "View Code", url: "https://github.com/obarakoo/Music-player.git" }
+        ],
+        image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop",
+    },
+    {
         title: "Boss Burger Landing Page",
         category: "Frontend Development",
         tech: ["HTML5", "CSS3", "Font Awesome"],
