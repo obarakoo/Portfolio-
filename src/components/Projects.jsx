@@ -41,6 +41,7 @@ const projectsData = [
         qaInsight:
             "Optimized audio buffering for gapless playback. Validated across multiple devices to ensure consistent audio quality and UI responsiveness. Implemented intuitive playback controls.",
         links: [
+            { label: "Live Demo", url: "https://obarakoo.github.io/Music-player/" },
             { label: "View Code", url: "https://github.com/obarakoo/Music-player.git" }
         ],
         image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=800&auto=format&fit=crop",
