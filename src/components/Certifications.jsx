@@ -87,6 +87,24 @@ const certificationsData = [
         url: "https://drive.google.com/file/d/1Yqoive-L9cGxHJHP8g0liAmQbwrFJBJ8/view?trk=public_profile_see-credential",
         year: "2022",
     },
+    {
+        category: "AI",
+        title: "Agentic AI Fundamentals",
+        issuer: "LinkedIn Learning",
+        description: "Agentic AI Fundamentals: Architectures, Frameworks, and Applications",
+        icon: <SiLinkedin className="cert-icon cert-icon--linkedin" />,
+        url: "https://www.linkedin.com/learning/certificates/24a7e89fdec2bf7292c8bfc571320efd92220c911e257e587d61d012e77ef9cc?trk=share_certificate",
+        year: "2024",
+    },
+    {
+        category: "Software Testing",
+        title: "Programming Foundations: Software Testing/QA",
+        issuer: "LinkedIn Learning",
+        description: "Programming Foundations: Software Testing/QA",
+        icon: <SiLinkedin className="cert-icon cert-icon--linkedin" />,
+        url: "https://www.linkedin.com/learning/certificates/5f2f6947e3fdc458f7477c3837eacaf5e52d7ae243973003e457cd02dc1faf38?trk=share_certificate",
+        year: "2024",
+    },
 ];
 
 /* ── Reusable single card ── */

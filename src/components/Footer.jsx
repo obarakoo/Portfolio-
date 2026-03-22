@@ -9,7 +9,7 @@ const Footer = () => {
                 <p className="footer-text">
                     Currently open for QA and Front-End opportunities.
                 </p>
-                <div className="social-links">
+                <div className="social-links" style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', marginBottom: '1.5rem' }}>
                     <a
                         href="https://github.com/obarakoo"
                         target="_blank"

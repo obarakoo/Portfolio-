@@ -1378,6 +1378,14 @@ body.theme-light .cert-close-btn {
 }
 
 
+.cert-scroll-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
 .cert-scroll-track {
   display: flex;
   gap: 1.5rem;
@@ -1393,12 +1401,11 @@ body.theme-light .cert-close-btn {
 
 @keyframes marquee {
   from {
-    transform: translateX(0);
+    transform: translateX(calc(-50% - 0.75rem));
   }
 
   to {
-    /* Since we've duplicated the content exactly once, we scroll 50% left to reach the start of the second set */
-    transform: translateX(calc(-50% - 0.75rem));
+    transform: translateX(0);
   }
 }
 
@@ -1832,12 +1839,11 @@ body.theme-light .cert-close-btn {
 
 @keyframes marquee {
   from {
-    transform: translateX(0);
+    transform: translateX(calc(-50% - 0.75rem));
   }
 
   to {
-    /* Since we've duplicated the content exactly once, we scroll 50% left to reach the start of the second set */
-    transform: translateX(calc(-50% - 0.75rem));
+    transform: translateX(0);
   }
 }
 
@@ -2242,12 +2248,11 @@ body.theme-light .cert-close-btn {
 
 @keyframes marquee {
   from {
-    transform: translateX(0);
+    transform: translateX(calc(-50% - 0.75rem));
   }
 
   to {
-    /* Since we've duplicated the content exactly once, we scroll 50% left to reach the start of the second set */
-    transform: translateX(calc(-50% - 0.75rem));
+    transform: translateX(0);
   }
 }
 
